@@ -1,0 +1,96 @@
+{% extends 'base.html' %} {% block title %}
+<title>Stock Info</title>
+{% endblock %} {% block body %}
+<center>
+    <form class=search method="POST">
+        <input name="ticker" required>
+        <input type="submit">
+    </form>
+</center>
+<center>
+    <h1 class=ticker>{{ ticker }} - {{ info[0] }}</h1>
+</center>
+<!-- TradingView Widget BEGIN -->
+<div class="container">
+    <div id="tradingview_d2bab"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+        new TradingView.widget({
+            // "autosize": true,
+            "width": '100%',
+            "height": 610,
+            "symbol": "{{ ticker }}",
+            "timezone": "Etc/UTC",
+            "theme": "dark",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "withdateranges": true,
+            "range": "ytd",
+            "allow_symbol_change": false,
+            "container_id": "tradingview_d2bab"
+        });
+    </script>
+</div>
+<!-- TradingView Widget END -->
+<center style="padding-top: 5px;">{{ info[3] }}</center>
+<center style="padding-top: 2.7rem;"><a href='{{ info[1] }}' target="_blank"><b>Company Website</b></a> | <a href='{{ info[2] }}' target="_blank"><b>Financials</b></a> | <a href='{{ info[5] }}' target="_blank"><b>Institutional Ownership</b></a> | <a href='{{ info[6] }}' target="_blank"><b>Twitter</b></a></center>
+<p class='container' style='padding-top: 10px;'>{{ info[4] }}</p>
+<div class='container card-custom'>
+    {% for key, value in fin.items() %}
+    <div>
+        <div class="card-body">
+            <center>
+                <h3>{{ key }}</h3>
+                <h4>{{ value }}</h4>
+            </center>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="container">
+    <h1 class="header">News</h1>
+    <div data-simplebar data-simplebar-auto-hide="false" class="scrollableContainerNews">
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Article</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for article in news %}
+                    <td class="table-date">{{ article['Date'] }}</td>
+                    <td class="table-time">{{ article['Time'] }}</td>
+                    <td>{{ article['Article'] | safe }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if bio is not none %}
+    <h1 class="header">Bio-catalysts</h1>
+    <div data-simplebar data-simplebar-auto-hide="false" class="scrollableContainerBio">
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Catalyst Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for cat in bio %}
+                    <td>{{ cat['Name'] }}</td>
+                    <td>{{ cat['Catalyst Notes'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

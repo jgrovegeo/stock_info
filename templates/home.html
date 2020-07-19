@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+<title>Stock Info</title>
+{% endblock %}
+
+{% block body %}
+<center><h1>Enter a ticker...</h1></center>
+<center>
+    <form action="{{ url_for('stockInfo') }}" method="POST">
+        <input name="ticker">
+        <input type="submit">
+    </form>
+</center>
+{% endblock %}

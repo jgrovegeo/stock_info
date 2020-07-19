@@ -1,0 +1,94 @@
+.table {
+    width: 100%;
+}
+
+.title-name {
+    color: #e5e5e5;
+    padding-top: 1rem;
+}
+
+.header {
+    color: orangered;
+    padding-top: 3rem;
+}
+
+.ticker {
+    color: yellow;
+    padding: 10px;
+}
+.search {
+  padding-top: 5px;
+}
+
+.footer {
+  width: 100%;
+  padding-top: 3rem;
+  display: block;
+}
+.card-custom {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding-top: 2.7rem;
+}
+
+.card-body {
+  background-color: #32383e;
+  border-radius: 5px;
+  border: 1px solid #3a3f44;
+}
+
+.scrollableContainerNews {
+  display: block;
+  height: 600px;
+  overflow: auto;
+  width: 100%;
+}
+.scrollableContainerBio{
+  display: block;
+  height: 200px;
+  overflow: auto;
+  width: 100%;
+}
+.table-date {
+  white-space:nowrap;
+  padding-right: 10px;
+}
+
+.table-time {
+  padding-right: 12px;
+}
+
+table th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #272B30;
+  color: #7A8288;
+}
+
+th,
+td {
+  padding: 3px;
+}
+
+table tr {
+  color: #7A8288;
+}
+
+thead {
+  border-bottom: aqua;
+}
+
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+    background-color: orangered;
+}
+
