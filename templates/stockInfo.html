@@ -13,7 +13,7 @@
 <!-- TradingView Widget BEGIN -->
 <div class="container">
     <div id="tradingview_d2bab"></div>
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tv.js') }}"></script>
     <script type="text/javascript">
         new TradingView.widget({
             // "autosize": true,
@@ -43,7 +43,18 @@
         <div class="card-body">
             <center>
                 <h3>{{ key }}</h3>
-                <h4>{{ value }}</h4>
+                {% if key == "EPS Q/Q" or key == "Sales Q/Q" and "%" in value %}
+                    {% set p_color = value | replace("%", "") | float %}
+                        {% if p_color > 0 %}
+                            <h4 style='color: greenyellow;'>{{ '%0.2f'|format(p_color) }}&#37</h4>
+                        {% elif p_color < 0 %}
+                            <h4 style='color: #EF3A1A;'>{{ '%0.2f'|format(p_color) }}&#37</h4>
+                        {% else %}
+                            <h4>{{ value }}</h4>
+                        {% endif %}
+                {% else %}
+                    <h4>{{ value }}</h4>
+                {% endif %}
             </center>
         </div>
     </div>
