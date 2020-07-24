@@ -2,7 +2,6 @@ import pandas as pd
 import datetime as dt
 import time
 import requests
-from tabulate import tabulate
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, redirect
 import json
