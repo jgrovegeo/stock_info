@@ -2,7 +2,7 @@
 <title>Stock Info</title>
 {% endblock %} {% block body %}
 <center>
-    <form class=search method="POST">
+    <form action="{{ url_for('tickerInput') }}" class=search method="POST">
         <input name="ticker" required>
         <input type="submit">
     </form>
