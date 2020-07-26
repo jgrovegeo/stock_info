@@ -11,6 +11,34 @@
     {% block title %} {% endblock %}
 </head>
 <body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('tickerInput') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('watchlistPage') }}">Watchlist</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="{{ url_for('tickerInput') }}" method="POST">
+                <input name ="ticker" class="form-control mr-sm-2" type="text" placeholder="Enter ticker" required>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            </div>
+        </nav>
+    </div>
+    <!-- <center>
+        <form action="{{ url_for('tickerInput') }}" class=search method="POST">
+            <input name="ticker" placeholder="Enter ticker" required>
+            <input type="submit">
+        </form>
+    </center> -->
     {% block body %} {% endblock %}
     <!-- JS only -->
     <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>

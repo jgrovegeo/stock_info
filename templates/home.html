@@ -5,11 +5,18 @@
 {% endblock %}
 
 {% block body %}
-<center><h1>Enter a ticker...</h1></center>
-<center>
-    <form action="{{ url_for('tickerInput') }}" method="POST">
-        <input name="ticker" required>
-        <input type="submit">
-    </form>
-</center>
+<div class="container center" style="padding-top: 10em;">
+    <center>
+        <h1>More to come!!</h1> 
+        <h1>In the meantime search for a ticker or check out todays watchlist.</h1>
+    </center>
+    <div style="padding-top: 5em;">
+        <h1>To Do's:</h1>
+        <h3 style="padding-left: 2em;"> - Add general market overview to homepage</h3>
+        <h3 style="padding-left: 2em;"> - Add pre-market and after-hours movers watchlist</h3>
+        <h3 style="padding-left: 2em;"> - Add my custom thinkorswim scanner watchlist to current finviz watchlist</h3>
+        <h3 style="padding-left: 2em;"> - Work on website style</h3>
+    
+    </div>
+</div>
 {% endblock %}

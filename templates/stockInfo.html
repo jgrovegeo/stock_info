@@ -1,12 +1,6 @@
 {% extends 'base.html' %} 
-{% block title %}<title>Stock Info</title>{% endblock %} 
+{% block title %}<title>Stock Info | {{ ticker }}</title>{% endblock %} 
 {% block body %}
-<center>
-    <form action="{{ url_for('tickerInput') }}" class=search method="POST">
-        <input name="ticker" required>
-        <input type="submit">
-    </form>
-</center>
 <center>
     <h1 class=ticker>{{ ticker }} - {{ info[0] }}</h1>
 </center>

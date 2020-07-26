@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from datetime import datetime
 
 # scrapes stock news from finviz
 def screener():
@@ -35,7 +36,9 @@ def screener():
     
     #Combines lists without duplicates
     tickers_final = list(set(fu_tickers + ta_tickers))
-    print(tickers_final)
-    return tickers_final
+  
+    date_today = datetime.today().strftime('%Y-%m-%d')
+
+    return tickers_final, date_today
 
     

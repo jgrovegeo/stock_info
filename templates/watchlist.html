@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}<title>Stock Info - Watchlist</title>{% endblock %} 
+{% block title %}<title>Stock Info | Watchlist</title>{% endblock %} 
 
 {% block body %}
 
-<h1>Watchlist</h1>
-{% for ticker in scrn %}
-    <h1>{{ ticker }}</h1>
-{% endfor %}
+<div class="container">
+    <center><h1>Watchlist for {{ scrn[1] }}</h1><h4>(currently only pulling from finviz)</h4></center>
+    {% for ticker in scrn[0] %}
+        <a href="/{{ ticker }}" target="_blank" ><h3 style="padding-left: 2em;">{{ ticker }}</h3></a>
+    {% endfor %}
+</div>
 
 {% endblock %}
