@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
+{% block title %}<title>Stock Info - Watchlist</title>{% endblock %} 
 
-{% for ticker in screener %}
+{% block body %}
+
+<h1>Watchlist</h1>
+{% for ticker in scrn %}
     <h1>{{ ticker }}</h1>
 {% endfor %}
+
+{% endblock %}

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from stockInfo import stockInfo, stockNews, stockBio, stockFinancials
+from watchlist import screener
 from bs4 import BeautifulSoup
 import requests
 
@@ -24,15 +25,20 @@ def tickerInput():
             return render_template('notfound.html', ticker=ticker)
     return render_template('home.html')
                           
-@app.route('/<ticker>', methods=['GET', 'POST'])
+@app.route('/<ticker>')
 def infoPage(ticker):
-    ticker = 'MARK' # place holder so AttributeError: NoneType isn't thrown on page load
+    ticker = ticker # place holder so AttributeError: NoneType isn't thrown on page load
     # functions to be passed as variables in jinja2 template
     info = stockInfo(ticker)
     news = stockNews(ticker)
     bio = stockBio(ticker)
     fin = stockFinancials(ticker)  
     return render_template('stockInfo.html', ticker=ticker, news=news, bio=bio, info=info, fin=fin )
+
+@app.route('/watchlist')
+def watchlistPage():
+    scrn = screener()
+    return render_template('watchlist.html', scrn=scrn)
 
 if __name__ == '__main__':
     app.run(debug=True)
