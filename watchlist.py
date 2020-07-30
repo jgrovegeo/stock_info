@@ -14,10 +14,13 @@ def screener():
     
     fu_tickers = []
     
-    for t in match_fu.find_all('span'):
-        temp = str(t.text)
-        temp2 = temp.strip('\xa0')
-        fu_tickers.append(temp2)
+    if match_fu  != None:
+        for t in match_fu.find_all('span'):
+            temp = str(t.text)
+            temp2 = temp.strip('\xa0')
+            fu_tickers.append(temp2)
+    else:
+        fu_tickers.append('Check back after hours')
      
     # TA screener on finviz    
     url_ta = 'https://finviz.com/screener.ashx?v=411&f=cap_microunder,sh_curvol_o200,sh_float_u100,sh_price_u2,sh_relvol_o3,ta_perf_dup,ta_sma20_pa&ft=4'
@@ -29,10 +32,13 @@ def screener():
     
     ta_tickers = []
     
-    for t in match_ta.find_all('span'):
-        temp = str(t.text)
-        temp2 = temp.strip('\xa0')
-        ta_tickers.append(temp2)
+    if match_ta != None:
+        for t in match_ta.find_all('span'):
+            temp = str(t.text)
+            temp2 = temp.strip('\xa0')
+            ta_tickers.append(temp2)
+    else:
+        ta_tickers.append('Check back after hours')
     
     #Combines lists without duplicates
     tickers_final = list(set(fu_tickers + ta_tickers))
