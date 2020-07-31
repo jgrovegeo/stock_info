@@ -41,8 +41,8 @@ def screener():
         ta_tickers.append('Check back after hours')
     
     #Combines lists without duplicates
-    tickers_final = list(set(fu_tickers + ta_tickers))
-  
+    # tickers_final = list(set(fu_tickers + ta_tickers))
+    tickers_final = 'Check back after hours'
     date_today = datetime.today().strftime('%Y-%m-%d')
 
     return tickers_final, date_today
