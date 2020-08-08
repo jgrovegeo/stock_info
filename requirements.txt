@@ -8,3 +8,4 @@ gunicorn==20.0.4
 lxml==4.5.1
 tweepy==3.9.0
 plotly==4.9.0
+pytz==2020.1

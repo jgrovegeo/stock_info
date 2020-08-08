@@ -7,6 +7,7 @@ import re
 import plotly.express as px
 import plotly as plotly
 from configparser import ConfigParser
+from pytz import timezone
 
 # Variables that contains the credentials to access Twitter API
 config = ConfigParser()
@@ -35,7 +36,7 @@ handle = ['PJ_Matlock', 'Hugh_Henne', 'MrZackMorris', 'The_Analyst_81', 'buysell
 
 # plots ticker mentions in a bar graph
 def tickerPopularity(handles):    
-    date_since = dt.datetime.today().replace(minute=0, hour=0, second=0, microsecond=0) # grabs todays date and replaces hours to midnight for comparision with twitter date results
+    date_since = dt.datetime.now(tz=timezone('US/Eastern')).replace(minute=0, hour=0, second=0, microsecond=0) # grabs todays date and replaces hours to midnight for comparision with twitter date results
 
     data = []
     tweets_text = []
@@ -48,6 +49,10 @@ def tickerPopularity(handles):
                         tweet_mode='extended',
                         include_retweets=False).items(50) # looks at 50 items for each handle
         # loops through each tweet per handle and appends them to a list
+        
+        eastern = timezone('US/Eastern') # used to convert twitter timezone
+        utc = timezone('UTC') # used to convert twitter timezone
+        
         for tweet in tweets:
             mined = {
                 'handle': tweet.user.screen_name,
@@ -55,7 +60,10 @@ def tickerPopularity(handles):
                 'tweet': tweet.full_text
             }
             twt_text = tweet.full_text
-            if tweet.created_at >= date_since:
+            twt_time = utc.localize(tweet.created_at) # localizes twitter datetime from utc
+            twt_timeEST = twt_time.astimezone(eastern) # converts localized time to EST
+            # if tweet.created_at >= date_since:
+            if twt_timeEST >= date_since:
                 data.append(mined)
                 tweets_text.append(twt_text)
         # splits tweet strings 
@@ -93,7 +101,7 @@ def tickerPopularity(handles):
                        'paper_bgcolor': '#272B30'},
                       font_color='#aaa',
                       font={'size':18},
-                      title_text='Ticker mentions on Twitter for ' + str(dt.datetime.today().strftime("%m/%d/%Y") + ' @ ' + dt.datetime.today().strftime("%H:%M")), 
+                      title_text='Ticker mentions on Twitter for ' + str(dt.datetime.now(tz=timezone('US/Eastern')).strftime("%m/%d/%Y") + ' @ ' + dt.datetime.now(tz=timezone('US/Eastern')).strftime("%H:%M")) + ' (EST)', 
                       title_x=0.5,
                       title_y=.98,
                       annotations=[
