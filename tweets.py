@@ -32,7 +32,7 @@ api = connect_to_twitter_OAuth()
 
 # list of handles to check
 handle = ['PJ_Matlock', 'Hugh_Henne', 'MrZackMorris', 'The_Analyst_81', 'buysellshort', 'ACInvestorBlog', 'Anonymoustocks',
-            'notoriousalerts', 'beach_trades', 'Reformed_Trader', 'Mitch_Picks', 'RadioSilentplay']
+            'notoriousalerts', 'beach_trades', 'Reformed_Trader', 'Mitch_Picks', 'RadioSilentplay', 'yatesinvesting']
 
 # plots ticker mentions in a bar graph
 def tickerPopularity(handles):    
@@ -90,7 +90,7 @@ def tickerPopularity(handles):
 
     print(df_tickers)
     
-    influencers = 'Fintwit Influencers<br><br>@PJ_Matlock<br>@Hugh_Henne<br>@MrZackMorris<br>@The_Analyst_81<br>@buysellshort<br>@ACInvestorBlog<br>@Anonymoustocks<br>@notoriousalerts<br>@beach_trades<br>@Reformed_Trader<br>@Mitch_Picks<br>@RadioSilentplay'
+    influencers = 'Fintwit Influencers<br><br>@PJ_Matlock<br>@Hugh_Henne<br>@MrZackMorris<br>@The_Analyst_81<br>@buysellshort<br>@ACInvestorBlog<br>@Anonymoustocks<br>@notoriousalerts<br>@beach_trades<br>@Reformed_Trader<br>@Mitch_Picks<br>@RadioSilentplay<br>@yatesinvesting'
     # draws plotly histogram
     fig = px.histogram(df_tickers, 
                        y='count', 

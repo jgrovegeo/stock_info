@@ -41,7 +41,7 @@ def watchlistPage():
     scrn = screener()
     # list of handles to check
     handle = ['PJ_Matlock', 'Hugh_Henne', 'MrZackMorris', 'The_Analyst_81', 'buysellshort', 'ACInvestorBlog', 'Anonymoustocks',
-              'notoriousalerts', 'beach_trades', 'Reformed_Trader', 'Mitch_Picks', 'RadioSilentplay']
+              'notoriousalerts', 'beach_trades', 'Reformed_Trader', 'Mitch_Picks', 'RadioSilentplay', 'yatesinvesting']
     twit = tickerPopularity(handle)
     return render_template('watchlist.html', scrn=scrn, twit=twit)
 
