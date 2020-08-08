@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from stockInfo import stockInfo, stockNews, stockBio, stockFinancials
 from watchlist import screener
+from tweets import tickerPopularity
 from bs4 import BeautifulSoup
 import requests
 
@@ -38,7 +39,11 @@ def infoPage(ticker):
 @app.route('/watchlist')
 def watchlistPage():
     scrn = screener()
-    return render_template('watchlist.html', scrn=scrn)
+    # list of handles to check
+    handle = ['PJ_Matlock', 'Hugh_Henne', 'MrZackMorris', 'The_Analyst_81', 'buysellshort', 'ACInvestorBlog', 'Anonymoustocks',
+              'notoriousalerts', 'beach_trades', 'Reformed_Trader', 'Mitch_Picks', 'RadioSilentplay']
+    twit = tickerPopularity(handle)
+    return render_template('watchlist.html', scrn=scrn, twit=twit)
 
 if __name__ == '__main__':
     app.run(debug=True)
