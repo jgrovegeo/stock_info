@@ -37,7 +37,7 @@ api = connect_to_twitter_OAuth()
 # plots ticker mentions in a bar graph
 def tickerPopularity(handles):    
     date_since = dt.datetime.now() # grabs todays date and replaces hours to midnight for comparision with twitter date results
-    date_since = date_since.astimezone(timezone('US/Eastern')).replace(minute=0, hour=0, second=0, microsecond=0).strftime('%Y-%m-%d')
+    date_since = date_since.replace(minute=0, hour=0, second=0, microsecond=0)
     print(str(date_since), str(type(date_since)))
     
     data = []
@@ -59,11 +59,9 @@ def tickerPopularity(handles):
                 'tweet': tweet.full_text
             }
             twt_text = tweet.full_text
-            # twt_date = tweet.created_at.replace(minute=0, hour=0, second=0, microsecond=0)
             twt_date = tweet.created_at
-            twt_date = twt_date.astimezone(timezone('US/Eastern')).replace(minute=0, hour=0, second=0, microsecond=0).strftime('%Y-%m-%d')
             print(str(twt_date), str(type(twt_date)), str(tweet.user.screen_name), tweet.full_text)
-            if twt_date == date_since:
+            if twt_date >= date_since:
                 data.append(mined)
                 tweets_text.append(twt_text)
         # splits tweet strings 
