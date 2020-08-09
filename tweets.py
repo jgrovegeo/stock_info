@@ -88,6 +88,18 @@ def tickerPopularity(handles):
     # counts the numbeter of tickers and makes new column count with values
     df_tickers = df_tickers['ticker'].value_counts().rename_axis('ticker').reset_index(name='count')
 
+    # creates links to tickers on the xaxis of graph to be passed in with 'tickvals' and 'ticktext' under 'fig.update_layout'
+    ticker_link_indexs = []
+    ticker_link = []
+    for ticker in df_tickers['ticker']:
+        ticker_html = '<a href="/' + ticker + '">' + ticker + '</a>'
+        ticker_link.append(ticker_html)
+    for index in enumerate(ticker_link):
+        ticker_link_indexs.append(index)
+    
+    tickvals_bar_xaxis = [i[0] for i in ticker_link_indexs] # grabs the index of each tuple from list 
+            
+    print(tickvals_bar_xaxis)
     print(df_tickers)
     print(cleaned_tickers)
     influencers = 'Fintwit Influencers<br><br>@PJ_Matlock<br>@Hugh_Henne<br>@MrZackMorris<br>@The_Analyst_81<br>@buysellshort<br>@ACInvestorBlog<br>@Anonymoustocks<br>@notoriousalerts<br>@beach_trades<br>@Reformed_Trader<br>@Mitch_Picks<br>@RadioSilentplay<br>@yatesinvesting'
@@ -101,18 +113,23 @@ def tickerPopularity(handles):
                        'paper_bgcolor': '#272B30'},
                       font_color='#aaa',
                       font={'size':18},
-                      title_text='Ticker mentions on Twitter for ' + str(dt.datetime.now(tz=timezone('US/Eastern')).strftime("%m/%d/%Y") + ' @ ' + dt.datetime.now(tz=timezone('US/Eastern')).strftime("%H:%M")) + ' (EST)', 
+                      title_text='Fintwit Influencer Ticker Mentions for ' + str(dt.datetime.now(tz=timezone('US/Eastern')).strftime("%m/%d/%Y") + ' @ ' + dt.datetime.now(tz=timezone('US/Eastern')).strftime("%H:%M")) + ' (EST)', 
                       title_x=0.5,
                       title_y=.98,
-                      annotations=[
-                                {
-                                    'x': .95,
-                                    'y': .95,
-                                    'text': influencers,
-                                    'showarrow': False,
-                                    'xref': 'paper',
-                                    'yref': 'paper'
-                                }]),
+                      xaxis={
+                          'tickmode': 'array',
+                          'tickvals': tickvals_bar_xaxis,
+                          'ticktext': ticker_link
+                      })
+                    #   annotations=[
+                    #             {
+                    #                 'x': .95,
+                    #                 'y': .95,
+                    #                 # 'text': influencers,
+                    #                 'showarrow': False,
+                    #                 'xref': 'paper',
+                    #                 'yref': 'paper'
+                    #             }]),
     fig.update_xaxes(showgrid=False, 
                      showline=True, 
                      linecolor='black',
@@ -134,6 +151,6 @@ def tickerPopularity(handles):
     # plot = fig.show()
     plot_div = plotly.offline.plot(fig, include_plotlyjs=False, output_type='div')
     
-    return plot_div, cleaned_tickers
+    return plot_div, df_tickers['ticker']
 
 # tickerPopularity(handle)
