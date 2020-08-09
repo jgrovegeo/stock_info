@@ -94,7 +94,7 @@ def tickerPopularity(handles):
     df_tickers = df_tickers['ticker'].value_counts().rename_axis('ticker').reset_index(name='count')
 
     print(df_tickers)
-    
+    print(cleaned_tickers)
     influencers = 'Fintwit Influencers<br><br>@PJ_Matlock<br>@Hugh_Henne<br>@MrZackMorris<br>@The_Analyst_81<br>@buysellshort<br>@ACInvestorBlog<br>@Anonymoustocks<br>@notoriousalerts<br>@beach_trades<br>@Reformed_Trader<br>@Mitch_Picks<br>@RadioSilentplay<br>@yatesinvesting'
     # draws plotly histogram
     fig = px.histogram(df_tickers, 
