@@ -38,9 +38,7 @@ api = connect_to_twitter_OAuth()
 def tickerPopularity(handles):    
     date_since = dt.datetime.now() # grabs todays date and replaces hours to midnight for comparision with twitter date results
     date_since = date_since.astimezone(timezone('US/Eastern')).replace(minute=0, hour=0, second=0, microsecond=0).strftime('%Y-%m-%d')
-    print(str(date_since))
-    print(type(date_since))
-    
+    print(str(date_since), str(type(date_since)))
     
     data = []
     tweets_text = []
@@ -64,6 +62,7 @@ def tickerPopularity(handles):
             # twt_date = tweet.created_at.replace(minute=0, hour=0, second=0, microsecond=0)
             twt_date = tweet.created_at
             twt_date = twt_date.astimezone(timezone('US/Eastern')).replace(minute=0, hour=0, second=0, microsecond=0).strftime('%Y-%m-%d')
+            print(str(twt_date), str(type(twt_date)), str(tweet.user.screen_name), tweet.full_text)
             if twt_date == date_since:
                 data.append(mined)
                 tweets_text.append(twt_text)
@@ -73,8 +72,6 @@ def tickerPopularity(handles):
             for txt in split_txt:
                 twt_split.append(txt)
     
-    print(str(twt_date))
-    print(type(twt_date))
     
     # runs list comprehension to find any list elements with '$' , indicating a ticker
     tickers = [t for t in twt_split if "$" in t]
