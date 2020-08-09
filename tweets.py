@@ -36,7 +36,11 @@ api = connect_to_twitter_OAuth()
 
 # plots ticker mentions in a bar graph
 def tickerPopularity(handles):    
-    date_since = dt.datetime.now().replace(minute=0, hour=0, second=0, microsecond=0) # grabs todays date and replaces hours to midnight for comparision with twitter date results
+    date_since = dt.datetime.now() # grabs todays date and replaces hours to midnight for comparision with twitter date results
+    date_since = date_since.astimezone(timezone('US/Eastern')).replace(minute=0, hour=0, second=0, microsecond=0)
+    print(str(date_since))
+    print(type(date_since))
+    
     
     data = []
     tweets_text = []
@@ -50,9 +54,6 @@ def tickerPopularity(handles):
                         include_retweets=False).items(50) # looks at 50 items for each handle
         # loops through each tweet per handle and appends them to a list
         
-        eastern = timezone('US/Eastern') # used to convert twitter timezone
-        utc = timezone('UTC') # used to convert twitter timezone
-        
         for tweet in tweets:
             mined = {
                 'handle': tweet.user.screen_name,
@@ -60,7 +61,10 @@ def tickerPopularity(handles):
                 'tweet': tweet.full_text
             }
             twt_text = tweet.full_text
-            if tweet.created_at >= date_since:
+            # twt_date = tweet.created_at.replace(minute=0, hour=0, second=0, microsecond=0)
+            twt_date = tweet.created_at
+            twt_date = twt_date.astimezone(timezone('US/Eastern')).replace(minute=0, hour=0, second=0, microsecond=0)
+            if str(twt_date) == str(date_since):
                 data.append(mined)
                 tweets_text.append(twt_text)
         # splits tweet strings 
@@ -68,6 +72,10 @@ def tickerPopularity(handles):
             split_txt = ticker.split(' ')
             for txt in split_txt:
                 twt_split.append(txt)
+    
+    print(str(twt_date))
+    print(type(twt_date))
+    
     # runs list comprehension to find any list elements with '$' , indicating a ticker
     tickers = [t for t in twt_split if "$" in t]
 
