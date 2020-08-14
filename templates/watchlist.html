@@ -5,7 +5,7 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
 <div class="container">
     {{ twit[0] | safe }}
-    <h5>Copy Fintwit tickers here(working on a copy-to-clipboard button)</h5>
+    <h5>Copy Fintwit tickers here (working on a copy-to-clipboard button)</h5>
     {% for ticker in twit[1] %}
         <a><h3 style="padding-left: 2em;">{{ ticker }}</h3></a>
     {% endfor %}
@@ -18,8 +18,9 @@
         {% endfor %}
     </div>
 {% else %}
-<div class="container" style="padding-top: 10em;">   
-    <center><span><strong style="color:tomato">Check back after market hours</strong></span></center>
-</div>
+<!-- <div class="container" style="padding-top: 10em;">   
+    <center><strong style="color:tomato">Check back after market hours</strong></center>
+</div> -->
+<p>Check back after hours</p>
 {% endif %}
 {% endblock %}

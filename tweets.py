@@ -38,7 +38,6 @@ api = connect_to_twitter_OAuth()
 def tickerPopularity(handles):    
     date_since = dt.datetime.now() # grabs todays date and replaces hours to midnight for comparision with twitter date results
     date_since = date_since.replace(minute=0, hour=0, second=0, microsecond=0)
-    print(str(date_since), str(type(date_since)))
     
     data = []
     tweets_text = []
@@ -60,7 +59,7 @@ def tickerPopularity(handles):
             }
             twt_text = tweet.full_text
             twt_date = tweet.created_at
-            print(str(twt_date), str(type(twt_date)), str(tweet.user.screen_name), tweet.full_text)
+            
             if twt_date >= date_since:
                 data.append(mined)
                 tweets_text.append(twt_text)
@@ -87,7 +86,9 @@ def tickerPopularity(handles):
 
     # counts the numbeter of tickers and makes new column count with values
     df_tickers = df_tickers['ticker'].value_counts().rename_axis('ticker').reset_index(name='count')
-
+    
+    df_tickers = df_tickers.head(int(len(df_tickers)*(20/100))) # grabs the top 20% of the dataframe. Reduces congestion on chart.
+    
     # creates links to tickers on the xaxis of graph to be passed in with 'tickvals' and 'ticktext' under 'fig.update_layout'
     ticker_link_indexs = []
     ticker_link = []
@@ -99,9 +100,8 @@ def tickerPopularity(handles):
     
     tickvals_bar_xaxis = [i[0] for i in ticker_link_indexs] # grabs the index of each tuple from list 
             
-    print(tickvals_bar_xaxis)
     print(df_tickers)
-    print(cleaned_tickers)
+
     influencers = 'Fintwit Influencers<br><br>@PJ_Matlock<br>@Hugh_Henne<br>@MrZackMorris<br>@The_Analyst_81<br>@buysellshort<br>@ACInvestorBlog<br>@Anonymoustocks<br>@notoriousalerts<br>@beach_trades<br>@Reformed_Trader<br>@Mitch_Picks<br>@RadioSilentplay<br>@yatesinvesting'
     # draws plotly histogram
     fig = px.histogram(df_tickers, 
@@ -121,21 +121,12 @@ def tickerPopularity(handles):
                           'tickvals': tickvals_bar_xaxis,
                           'ticktext': ticker_link
                       })
-                    #   annotations=[
-                    #             {
-                    #                 'x': .95,
-                    #                 'y': .95,
-                    #                 # 'text': influencers,
-                    #                 'showarrow': False,
-                    #                 'xref': 'paper',
-                    #                 'yref': 'paper'
-                    #             }]),
     fig.update_xaxes(showgrid=False, 
                      showline=True, 
                      linecolor='black',
                      linewidth=2, 
                      mirror=True, 
-                     title_text='Tickers',
+                     title_text='Tickers (top 20%)',
                      tickangle=45,
                      zeroline=False
                      )
@@ -152,5 +143,6 @@ def tickerPopularity(handles):
     plot_div = plotly.offline.plot(fig, include_plotlyjs=False, output_type='div')
     
     return plot_div, df_tickers['ticker']
+
 
 # tickerPopularity(handle)

@@ -33,12 +33,6 @@
             </div>
         </nav>
     </div>
-    <!-- <center>
-        <form action="{{ url_for('tickerInput') }}" class=search method="POST">
-            <input name="ticker" placeholder="Enter ticker" required>
-            <input type="submit">
-        </form>
-    </center> -->
     {% block body %} {% endblock %}
     <!-- JS only -->
     <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
